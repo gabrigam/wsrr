@@ -678,7 +678,7 @@ public class WsrrLookup {
 
 	public String aboutLibVersion() {
 
-		return "liblKpWSRR Version 2.5 November 2016";
+		return "liblKpWSRR Version 2.6 Gennaio 2017";
 
 	}
 
@@ -790,7 +790,8 @@ public class WsrrLookup {
 						WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 				if (!WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP").contains("java.net.SocketException")
 						&& !WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")
-								.contains("java.net.UnknownHostException"))
+								.contains("java.net.UnknownHostException") &&  !WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")
+								.contains("Server returned HTTP response code: 400"))
 					throw new LIBLKPWSRRAException(WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP"));
 				else
 					throw new LIBLKPWSRRTException(WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP"));

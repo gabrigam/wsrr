@@ -108,11 +108,13 @@ public class WsrrUtility {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			enpointAndTimeout=null;
 		}
 
+		if (enpointAndTimeout !=null) {
 		enpointAndTimeout[0]=endpoint;
 		enpointAndTimeout[1]=timeout;
+		}
 		
 		return enpointAndTimeout;
 
@@ -211,7 +213,14 @@ public class WsrrUtility {
 
 			con.connect();
 
-			jsa = new JSONArray(print_content(con));
+			String res=print_content(con);
+			if (res!=null && res.length() !=0) {
+				jsa = new JSONArray(res);
+				
+			} else {
+				jsa = new JSONArray("[]");
+			}
+				
 
 		} catch (Exception e) {
 
