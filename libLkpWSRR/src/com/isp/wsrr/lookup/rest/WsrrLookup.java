@@ -678,7 +678,7 @@ public class WsrrLookup {
 
 	public String aboutLibVersion() {
 
-		return "liblKpWSRR Version 2.6 Gennaio 2017";
+		return "liblKpWSRR Version 2.6 Febbraio 2017";
 
 	}
 
@@ -1268,8 +1268,9 @@ public class WsrrLookup {
 				String serviceType = (String) current.get("SERVICETYPE");
 				String serviceAcronym = (String) current.get("SERVICEACRONIMO");
 				ArrayList endpointData = (ArrayList) current.get("ENDPOINTARRAY");
-				if (endpointData != null)
-					endpointData.add("empty");
+				
+				//if (endpointData != null)
+				//	endpointData.add("empty");
 
 				sb.append("<trace>");
 				sb.append("<header>").append(ispHeader).append("</header>");
@@ -1345,8 +1346,8 @@ public class WsrrLookup {
 				String serviceType = (String) current.get("SERVICETYPE");
 				String serviceAcronym = (String) current.get("SERVICEACRONIMO");
 				ArrayList endpointData = (ArrayList) current.get("ENDPOINTARRAY");
-				if (endpointData != null)
-					endpointData.add("empty");
+				//if (endpointData != null)
+				//	endpointData.add("empty");
 
 				sb.append("<trace>");
 				sb.append("<header>").append(ispHeader).append("</header>");

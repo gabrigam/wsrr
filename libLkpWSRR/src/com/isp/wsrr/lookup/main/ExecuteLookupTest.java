@@ -44,8 +44,7 @@ public class ExecuteLookupTest {
 					System.out.println("Censimento LOOKUPWSRR (REST) versione 00  non Trovato");
 				}else System.out.println("Dati del servizio : LOOKUPWSRR (REST) versione 00 - "+data.toString());
 			    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-					
-				
+
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Current=headerISP_Base.replaceAll("%TIMESTAMP%", current);
 				headerISP_Current=headerISP_Current.replaceAll("%SERVICE%", "LKPWSRRTPS");

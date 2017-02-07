@@ -103,7 +103,7 @@ public class WsrrUtility {
 				} else timeout="3";
 				
 			} else 
-				timeout="3000";
+				timeout="3";
 
 
 		} catch (Exception e) {
