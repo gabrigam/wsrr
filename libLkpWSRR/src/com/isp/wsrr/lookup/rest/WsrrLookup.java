@@ -56,6 +56,8 @@ import net.sf.ehcache.Element;
  */
 
 public class WsrrLookup {
+	
+	public static final String aboutLib="LibLKPWSRR V2.6";
 
 	private ConnectionDataBeanSingleton cdb;
 
@@ -85,11 +87,12 @@ public class WsrrLookup {
 				.append("</serviceAcronimo>");
 		if (error != null && error.length() != 0)
 			sb.append("<errorMessage><![CDATA[").append(error).append("]]></errorMessage>");
+		sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
 		sb.append("</output>");
 		sb.append("<returnCode>KO</returnCode>");
 		sb.append("<messageType>LKPWSRR</messageType>");
 		sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
-				.append("<environment>todo</environment>");
+				.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");
 		sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 		sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
 				.append("</finaltimeStamp>");
@@ -481,10 +484,10 @@ public class WsrrLookup {
 
 				url = new URL(null, stb.append(wsrrurl).append(theQuery).toString(),
 						new sun.net.www.protocol.https.Handler());
-
+				
 			} else {
 
-				url = new URL(stb.append(wsrrurl).append(theQuery).toString());
+				url = new URL(stb.append(wsrrurl).append(theQuery).toString());				
 
 			}
 
@@ -678,7 +681,7 @@ public class WsrrLookup {
 
 	public String aboutLibVersion() {
 
-		return "liblKpWSRR Version 2.6 Febbraio 2017";
+		return aboutLib;
 
 	}
 
@@ -1077,12 +1080,12 @@ public class WsrrLookup {
 											sb.append("<endPointArray></endPointArray>");
 											
 										}
-										
+										sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
 										sb.append("</output>");
 										sb.append("<returnCode>OK</returnCode>");
 										sb.append("<messageType>LKPWSRR</messageType>");
 										sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
-												.append("<environment>todo</environment>");
+												.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 										sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 										sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
 												.append("</finaltimeStamp>");
@@ -1133,12 +1136,13 @@ public class WsrrLookup {
 							}
 							else {								
 								sb.append("<endPointArray></endPointArray>");								
-							}							
+							}					
+							sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
 							sb.append("</output>");
 							sb.append("<returnCode>KO</returnCode>");
 							sb.append("<messageType>LKPWSRR</messageType>");
 							sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
-									.append("<environment>todo</environment>");
+									.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 							sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 							sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
 									.append("</finaltimeStamp>");
@@ -1282,11 +1286,12 @@ public class WsrrLookup {
 				sb.append("<endPointArray><![CDATA[");
 				sb.append(endpointData.toString()).toString();
 				sb.append("]]>").append("</endPointArray>");
+				sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
 				sb.append("</output>");
 				sb.append("<returnCode>OK</returnCode>");
 				sb.append("<messageType>LKPWSRR</messageType>");
 				sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
-						.append("<environment>todo</environment>");
+						.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 				sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 				sb.append("<finaltimeStamp>")
 						.append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
@@ -1359,11 +1364,13 @@ public class WsrrLookup {
 				sb.append("<endPointArray><![CDATA[");
 				sb.append(endpointData.toString()).toString();
 				sb.append("]]>").append("</endPointArray>");
+				sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
+				
 				sb.append("</output>");
 				sb.append("<returnCode>OK</returnCode>");
 				sb.append("<messageType>LKPWSRR</messageType>");
 				sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
-						.append("<environment>todo</environment>");
+						.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 				sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 				sb.append("<finaltimeStamp>")
 						.append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))

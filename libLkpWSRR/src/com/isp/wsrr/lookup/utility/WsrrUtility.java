@@ -186,10 +186,10 @@ public class WsrrUtility {
 				 
 				//added in version 2.4 
 				url = new URL(null, stb.append(wsrrUrl).append(theQuery).toString() ,new sun.net.www.protocol.https.Handler());
-				
+								
 			} else {
 				
-				url = new URL(stb.append(wsrrUrl).append(theQuery).toString());
+				url = new URL(stb.append(wsrrUrl).append(theQuery).toString());				
 				
 			}
 
@@ -255,9 +255,10 @@ public class WsrrUtility {
 				//added in version 2.4 
 				url = new URL(null, stb.append(wsrrUrl).append(theQuery).toString() ,new sun.net.www.protocol.http.Handler());
 				
+				
 			} else {
 				url = new URL(stb.append(wsrrUrl).append(theQuery).toString());
-				
+								
 			}
 			
 			con = (HttpURLConnection) url.openConnection();
