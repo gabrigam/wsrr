@@ -40,7 +40,6 @@ public class ExecuteLookupTest {
 				headerISP_Base = headerISP_Base.replaceAll("%SERVICE%", "LOOKUPWSRR");
 
                 data = ra.getServiceData(headerISP_Base, "00","REST");
-                data = ra.getServiceData(headerISP_Base, "00","REST");
 					
 				if (data==null) {
 					System.out.println("Censimento LOOKUPWSRR (REST) versione 00  non Trovato");
