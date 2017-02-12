@@ -80,14 +80,14 @@ public class WsrrLookup {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("<trace>").append("<header>").append(ispHeader).append("</header>");
-		sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>")
+		sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>").append("<requestType>").append(serviceType).append("</requestType>")
 				.append("</otherDataInput>");
 		sb.append("<output><serviceType>").append(serviceType).append("</serviceType>").append("<serviceSubType>")
 				.append(serviceSubType).append("</serviceSubType>").append("<serviceAcronimo>").append(serviceAcronym)
 				.append("</serviceAcronimo>");
 		if (error != null && error.length() != 0)
 			sb.append("<errorMessage><![CDATA[").append(error).append("]]></errorMessage>");
-		sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
+		
 		sb.append("</output>");
 		sb.append("<returnCode>KO</returnCode>");
 		sb.append("<messageType>LKPWSRR</messageType>");
@@ -781,7 +781,7 @@ public class WsrrLookup {
 			catalogHashMap = null;
 
 			trace(applicationId, executionTS,
-					formatXmltraceData(ispHeader, catalogVersion, "", "", "", executionTS, ""));
+					formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "", executionTS, ""));
 
 		} else {
 
@@ -789,7 +789,7 @@ public class WsrrLookup {
 
 			if (isErrorPresent(jso)) {
 
-				trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, "", "", "", executionTS,
+				trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "", executionTS,
 						WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 				if (!WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP").contains("java.net.SocketException")
 						&& !WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")
@@ -815,7 +815,7 @@ public class WsrrLookup {
 
 					message[1] = catalog;
 
-					trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, "", "", "",
+					trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "",
 							executionTS, concatenateString(message)));
 
 					throw new LIBLKPWSRRTException(concatenateString(message));
@@ -1060,7 +1060,7 @@ public class WsrrLookup {
 
 										sb.append("<trace>");
 										sb.append("<header>").append(ispHeader).append("</header>");
-										sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>")
+										sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>").append("<requestType>").append(serviceType).append("</requestType>")
 												.append("</otherDataInput>");
 										sb.append("<output><serviceType>").append(serviceType).append("</serviceType>").append("<serviceSubType>")
 												.append(serviceSubType).append("</serviceSubType>").append("<serviceAcronimo>").append(serviceAcronym)
@@ -1080,7 +1080,7 @@ public class WsrrLookup {
 											sb.append("<endPointArray></endPointArray>");
 											
 										}
-										sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
+										
 										sb.append("</output>");
 										sb.append("<returnCode>OK</returnCode>");
 										sb.append("<messageType>LKPWSRR</messageType>");
@@ -1119,7 +1119,7 @@ public class WsrrLookup {
 
 							sb.append("<trace>");
 							sb.append("<header>").append(ispHeader).append("</header>");
-							sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>")
+							sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion).append("</serviceVersion>").append("<requestType>").append(serviceType).append("</requestType>")
 									.append("</otherDataInput>");
 							sb.append("<output><serviceType>").append(serviceType).append("</serviceType>").append("<serviceSubType>")
 									.append(serviceSubType).append("</serviceSubType>").append("<serviceAcronimo>").append(serviceAcronym)
@@ -1137,7 +1137,7 @@ public class WsrrLookup {
 							else {								
 								sb.append("<endPointArray></endPointArray>");								
 							}					
-							sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
+							
 							sb.append("</output>");
 							sb.append("<returnCode>KO</returnCode>");
 							sb.append("<messageType>LKPWSRR</messageType>");
@@ -1279,14 +1279,14 @@ public class WsrrLookup {
 				sb.append("<trace>");
 				sb.append("<header>").append(ispHeader).append("</header>");
 				sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion)
-						.append("</serviceVersion>").append("</otherDataInput>");
+						.append("</serviceVersion>").append("<requestType>").append(serviceType).append("</requestType>").append("</otherDataInput>");
 				sb.append("<output><serviceType>").append(serviceType).append("</serviceType>")
 						.append("<serviceSubType>").append(serviceSubType).append("</serviceSubType>")
 						.append("<serviceAcronimo>").append(serviceAcronym).append("</serviceAcronimo>");
 				sb.append("<endPointArray><![CDATA[");
 				sb.append(endpointData.toString()).toString();
 				sb.append("]]>").append("</endPointArray>");
-				sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
+				
 				sb.append("</output>");
 				sb.append("<returnCode>OK</returnCode>");
 				sb.append("<messageType>LKPWSRR</messageType>");
@@ -1357,14 +1357,13 @@ public class WsrrLookup {
 				sb.append("<trace>");
 				sb.append("<header>").append(ispHeader).append("</header>");
 				sb.append("<otherDataInput>").append("<serviceVersion>").append(catalogVersion)
-						.append("</serviceVersion>").append("</otherDataInput>");
+						.append("</serviceVersion>").append("<requestType>").append(serviceType).append("</requestType>").append("</otherDataInput>");
 				sb.append("<output><serviceType>").append(serviceType).append("</serviceType>")
 						.append("<serviceSubType>").append(serviceSubType).append("</serviceSubType>")
 						.append("<serviceAcronimo>").append(serviceAcronym).append("</serviceAcronimo>");
 				sb.append("<endPointArray><![CDATA[");
 				sb.append(endpointData.toString()).toString();
 				sb.append("]]>").append("</endPointArray>");
-				sb.append("<catalogVersion>").append(catalogVersion).append("</catalogVersion>");
 				
 				sb.append("</output>");
 				sb.append("<returnCode>OK</returnCode>");

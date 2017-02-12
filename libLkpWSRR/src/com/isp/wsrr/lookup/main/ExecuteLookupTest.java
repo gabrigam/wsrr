@@ -45,6 +45,8 @@ public class ExecuteLookupTest {
 					System.out.println("Censimento LOOKUPWSRR (REST) versione 00  non Trovato");
 				}else System.out.println("Dati del servizio : LOOKUPWSRR (REST) versione 00 - "+data.toString());
 
+				headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
+				
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Base = headerISP_Base.replaceAll("%TIMESTAMP%", current);
 				headerISP_Base = headerISP_Base.replaceAll("%SERVICE%", "LKPWSRRTPS");
@@ -55,7 +57,9 @@ public class ExecuteLookupTest {
 				if (data==null) { 
 					System.out.println("Censimento LKPWSRRTPS (REST) versione 00  non Trovato");
 				}else System.out.println("Dati del servizio : LKPWSRRTPS (REST) versione 00 - "+data.toString());
-											
+				
+				headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
+				
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Base=headerISP_Base.replaceAll("%TIMESTAMP%", current);
 				headerISP_Base=headerISP_Base.replaceAll("%SERVICE%", "LKPWSRRTPS");
@@ -65,7 +69,9 @@ public class ExecuteLookupTest {
 				if (data==null) { 
 					System.out.println("Censimento LKPWSRRTPS (SOAP) versione 00  non Trovato");
 				}else System.out.println("Dati del servizio : LKPWSRRTPS (SOAP) versione 00 - "+data.toString());
-								
+							
+				headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
+				
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Base=headerISP_Base.replaceAll("%TIMESTAMP%", current);
 				headerISP_Base=headerISP_Base.replaceAll("%SERVICE%", "WS00S00");
@@ -75,7 +81,9 @@ public class ExecuteLookupTest {
 				if (data==null) { 
 					System.out.println("Censimento WS00S00     (SOAP) versione 00  non Trovato");
 				}else System.out.println("Dati del servizio : WS00S00    (SOAP) versione 00 - "+data.toString());
-								
+				
+				headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
+				
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Base=headerISP_Base.replaceAll("%TIMESTAMP%", current);
 				headerISP_Base=headerISP_Base.replaceAll("%SERVICE%", "SGRESTSOAP");
@@ -93,6 +101,8 @@ public class ExecuteLookupTest {
 					System.out.println("Endpoint soap "+ListSOAPEndpoint.toString());
 				
 				}
+				
+				headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
 				
 				current=new SimpleDateFormat("yyyyMMddHHmmssSSSSSS").format(new Date());
 				headerISP_Base=headerISP_Base.replaceAll("%TIMESTAMP%", current);
