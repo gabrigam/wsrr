@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import com.isp.wsrr.lookup.commons.Messages;
 import com.isp.wsrr.lookup.exception.LIBLKPWSRRAException;
 import com.isp.wsrr.lookup.exception.LIBLKPWSRRTException;
+import com.isp.wsrr.lookup.utility.WsrrUtility;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
@@ -77,7 +78,7 @@ public class WsrrLookup {
 	}
 
 	private String formatXmltraceData(String ispHeader, String catalogVersion, String serviceType,
-			String serviceSubType, String serviceAcronym, String executionTS, String error) {
+			String serviceSubType, String serviceAcronym, String description,String extendedDescription,String executionTS, String error) {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("<trace>").append("<header>").append(ispHeader).append("</header>");
@@ -86,6 +87,7 @@ public class WsrrLookup {
 		sb.append("<output><serviceType>").append(serviceType).append("</serviceType>").append("<serviceSubType>")
 				.append(serviceSubType).append("</serviceSubType>").append("<serviceAcronimo>").append(serviceAcronym)
 				.append("</serviceAcronimo>");
+		
 		if (error != null && error.length() != 0)
 			sb.append("<errorMessage><![CDATA[").append(error).append("]]></errorMessage>");
 		
@@ -757,6 +759,9 @@ public class WsrrLookup {
 		String timestamp = null;
 
 		String executionTS = WsrrLookup.quadratureTS();
+		
+		String catalogDescription="";
+		String catalogDescriptionExt="";
 
 		boolean RESTInterfaceFound = false;
 		boolean SOAPInterfaceFound = false;
@@ -782,7 +787,7 @@ public class WsrrLookup {
 			catalogHashMap = null;
 
 			trace(applicationId, executionTS,
-					formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "", executionTS, ""));
+					formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "","","", executionTS, ""));
 
 		} else {
 
@@ -790,7 +795,7 @@ public class WsrrLookup {
 
 			if (isErrorPresent(jso)) {
 
-				trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "", executionTS,
+				trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "","","", executionTS,
 						WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 				if (!WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP").contains("java.net.SocketException")
 						&& !WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")
@@ -816,7 +821,7 @@ public class WsrrLookup {
 
 					message[1] = catalog;
 
-					trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "",
+					trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, interfaceType, "", "","","",
 							executionTS, concatenateString(message)));
 
 					throw new LIBLKPWSRRTException(concatenateString(message));
@@ -867,7 +872,7 @@ public class WsrrLookup {
 							message[3] = serviceType;
 
 							trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, serviceType,
-									serviceSubType, "", executionTS, concatenateString(message)));
+									serviceSubType, "","","", executionTS, concatenateString(message)));
 
 							throw new LIBLKPWSRRAException(concatenateString(message));
 
@@ -904,7 +909,7 @@ public class WsrrLookup {
 										if (isErrorPresent((jso))) {
 
 											trace(applicationId, executionTS, formatXmltraceData(ispHeader,
-													catalogVersion, serviceType, serviceSubType, "", executionTS,
+													catalogVersion, serviceType, serviceSubType, "", "","",executionTS,
 													WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 
 											throw new LIBLKPWSRRAException(
@@ -947,7 +952,7 @@ public class WsrrLookup {
 												localHashMap.put("TIMEOUT", endpointTimeoutREST);
 
 												localHashMap.put("FLAGISPHEADER", flagISPHeaderREST);
-
+																							
 												endpointArrayList.add(localHashMap);
 
 												RESTInterfaceFound = true;
@@ -966,7 +971,7 @@ public class WsrrLookup {
 										if (isErrorPresent((jso))) {
 
 											trace(applicationId, executionTS, formatXmltraceData(ispHeader,
-													catalogVersion, serviceType, serviceSubType, "", executionTS,
+													catalogVersion, serviceType, serviceSubType, "", "","",executionTS,
 													WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 
 											throw new LIBLKPWSRRAException(
@@ -1009,7 +1014,7 @@ public class WsrrLookup {
 												localHashMap.put("TIMEOUT", endpointTimeoutSOAP);
 
 												localHashMap.put("FLAGISPHEADER", flagISPHeaderSOAP);
-
+												
 												endpointArrayList.add(localHashMap);
 
 												SOAPInterfaceFound = true;
@@ -1038,7 +1043,7 @@ public class WsrrLookup {
 
 										trace(applicationId, executionTS,
 												formatXmltraceData(ispHeader, catalogVersion, serviceType,
-														serviceSubType, "", executionTS,
+														serviceSubType, "","","", executionTS,
 														WsrrLookup.getValueFromJsonObject(jso, "errore_LIBWSRRLKP")));
 
 										throw new LIBLKPWSRRAException(
@@ -1047,16 +1052,40 @@ public class WsrrLookup {
 									} else {
 
 										serviceAcronym = WsrrLookup.getValueFromJsonObject(jso, "value");
+																			
+										//170217
+										query = specializeQuery(Messages.QUERY_OBJECT_DESCRIPTION_JSON, catalog, catalogVersion);
+
+										result = queryExecutor(query, ispHeader);
+										
+										jso = (JSONObject) ((JSONArray) result.get(0)).get(0);
+
+										catalogDescription = 		WsrrLookup
+
+												.getObjectValueFromJSONArrayEndpointData(
+
+														((JSONArray) result.get(0)), "description");
+										
+										catalogDescriptionExt = 		WsrrLookup
+
+												.getObjectValueFromJSONArrayEndpointData(
+
+														((JSONArray) result.get(0)), "gep63_DESC_ESTESA");
 
 										catalogHashMap.put("SERVICETYPE", serviceType);
 
 										catalogHashMap.put("SERVICESUBTYPE", serviceSubType);
 
 										catalogHashMap.put("SERVICEACRONIMO", serviceAcronym);
+										
+										catalogHashMap.put("DESCRIPTION", catalogDescription);
+										
+										//170217
+										
+										catalogHashMap.put("EXTENDEDESCRIPTION", catalogDescriptionExt);
 
 										catalogHashMap.put("ENDPOINTARRAY", endpointArrayList);
-										
-										
+																																								
 										StringBuffer sb = new StringBuffer();
 
 										sb.append("<trace>");
@@ -1066,6 +1095,11 @@ public class WsrrLookup {
 										sb.append("<output><serviceType>").append(serviceType).append("</serviceType>").append("<serviceSubType>")
 												.append(serviceSubType).append("</serviceSubType>").append("<serviceAcronimo>").append(serviceAcronym)
 												.append("</serviceAcronimo>");
+										
+										//170217
+										sb.append("<serviceDescription><![CDATA[").append(catalogDescription).append("]]></serviceDescription>");
+										sb.append("<serviceExtendedDescription><![CDATA[").append(catalogDescriptionExt).append("]]></serviceExtendedDescription>");
+										
 										// fix inserted catalogHashMap!= null &&
 										if (catalogHashMap != null
 												&& (getEndpointRestData(catalogHashMap) != null || getEndPointSoapData(catalogHashMap) != null)) {
@@ -1107,7 +1141,7 @@ public class WsrrLookup {
 
 									
 									trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion,
-											serviceType, serviceSubType, "", executionTS, concatenateString(message)));
+											serviceType, serviceSubType, "","","", executionTS, concatenateString(message)));
 
 									throw new LIBLKPWSRRTException(concatenateString(message));
 
@@ -1159,7 +1193,7 @@ public class WsrrLookup {
 					} else {
 
 						trace(applicationId, executionTS, formatXmltraceData(ispHeader, catalogVersion, serviceType,
-								serviceSubType, "", executionTS, (result.toString())));
+								serviceSubType, "","","", executionTS, (result.toString())));
 
 						throw new LIBLKPWSRRTException(result.toString());
 

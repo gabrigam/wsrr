@@ -15,6 +15,8 @@ package com.isp.wsrr.lookup.commons;
 	
 	public static String QUERY_GET_ORGANIZATION_JSON = "Metadata/JSON/PropertyQuery?query=/WSRR/GenericObject[@name='%CATALOGNAME%'%20and%20@version='%VERSION%']/ale63_owningOrganization(.)&p1=name";
 
+	public static String QUERY_OBJECT_DESCRIPTION_JSON = "Metadata/JSON/PropertyQuery?query=/WSRR/GenericObject[@name='%CATALOGNAME%'%20and%20@version='%VERSION%']&p1=description&p2=gep63_DESC_ESTESA";
+	
 	public static String ERROR_1 = "Errore #1 : tags <ServiceID></ServiceID> e/o <ApplicationID></ApplicationID> e/o <Timestamp></Timestamp> non trovati nel Header ISP";
 	public static String ERROR_2 = "Errore #2 : tags <ServiceID></ServiceID> e/o <ApplicationID></ApplicationID> e/o <Timestamp></Timestamp> non hanno un valore associato nel Header ISP";
 	public static String ERROR_3 = "Errore #3 : Classificazione non definita per il Catalogo : ";

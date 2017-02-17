@@ -30,10 +30,7 @@ public class ExecuteLookupTest {
 			WsrrLookup ra = new WsrrLookup(cdb);
 			System.out.println(ra.aboutLibVersion());
 			HashMap data = new HashMap();
-
-	        System.out.println(">>>> " +new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()));
-	        
-			System.out.println(ExecuteLookupTest.quadratureTS());			
+		
 			String executionTS =ExecuteLookupTest.quadratureTS();
 					
 			//System.setProperty("LIBLKPWSRRSERVERTYPE", "JBOSS");
