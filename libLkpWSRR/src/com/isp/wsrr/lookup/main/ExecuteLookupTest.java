@@ -1,5 +1,6 @@
 package com.isp.wsrr.lookup.main;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,6 +31,11 @@ public class ExecuteLookupTest {
 			System.out.println(ra.aboutLibVersion());
 			HashMap data = new HashMap();
 
+	        System.out.println(">>>> " +new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()));
+	        
+			System.out.println(ExecuteLookupTest.quadratureTS());			
+			String executionTS =ExecuteLookupTest.quadratureTS();
+					
 			//System.setProperty("LIBLKPWSRRSERVERTYPE", "JBOSS");
 			
 			String headerISP_Base = "<ISPWebservicesHeader><RequestInfo><TransactionId/><Timestamp>%TIMESTAMP%</Timestamp><ServiceID>%SERVICE%</ServiceID><ServiceVersion/><Language/></RequestInfo><OperatorInfo/><CompanyInfo><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPCallerCompanyIDCode>01</ISPCallerCompanyIDCode><ISPBranchCode/><NotISPCompanyIDCode/></CompanyInfo><BusinessInfo><CustomerID/><BusinessProcessName/><BusinessProcessID>61619</BusinessProcessID><BusinessOperation/><BusinessFileID/></BusinessInfo><TechnicalInfo><ChannelIDCode>UT</ChannelIDCode><ApplicationID>IXPG0</ApplicationID><CallerServerName/><CallerProgramName/></TechnicalInfo><AdditionalBusinessInfo><Param Name=\"CodUnitaOperativa\" Value=\"14493\"/><Param/><Param/><Param/><Param/><Param/></AdditionalBusinessInfo></ISPWebservicesHeader>";
@@ -125,5 +131,33 @@ public class ExecuteLookupTest {
 			}
 		 
 	}
+	 public static String quadratureTS() {
+		 
+			String ts=null;
+			
+			long timeInMillis = System.currentTimeMillis();
+			long timeInNanos = System.nanoTime();
+			
+			Timestamp timestamp = new Timestamp(timeInMillis);
+			timestamp.setNanos((int) (timeInNanos % 1000000000));
 
+			String micros=timestamp.toString();
+			
+			String partmicro=micros.substring(micros.length()-9,micros.length()-3);
+			
+			String cts=new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date());
+			
+			String partcts=cts.substring(0,cts.length()-6);
+			
+			long start = System.nanoTime();
+			long microseconds = start / 1000;			
+			
+			String strmicros = Long.toString(microseconds);			
+						
+			return (partcts+strmicros.substring(0,6));
+		 }
+ 
+
+ 
+ 
 }

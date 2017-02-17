@@ -9,6 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class WsrrLookup {
 		sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
 				.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");
 		sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
-		sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
+		sb.append("<finaltimeStamp>").append(WsrrLookup.quadratureTS())
 				.append("</finaltimeStamp>");
 		sb.append("</trace>");
 
@@ -755,7 +756,7 @@ public class WsrrLookup {
 
 		String timestamp = null;
 
-		String executionTS = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date());
+		String executionTS = WsrrLookup.quadratureTS();
 
 		boolean RESTInterfaceFound = false;
 		boolean SOAPInterfaceFound = false;
@@ -1087,7 +1088,7 @@ public class WsrrLookup {
 										sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
 												.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 										sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
-										sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
+										sb.append("<finaltimeStamp>").append(WsrrLookup.quadratureTS())
 												.append("</finaltimeStamp>");
 										// sb.append("</input>");
 										sb.append("</trace>");
@@ -1144,7 +1145,7 @@ public class WsrrLookup {
 							sb.append("<hostName>").append(WsrrLookup.getHostName()).append("</hostName>")
 									.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 							sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
-							sb.append("<finaltimeStamp>").append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
+							sb.append("<finaltimeStamp>").append(WsrrLookup.quadratureTS())
 									.append("</finaltimeStamp>");
 							// sb.append("</input>");
 							sb.append("</trace>");
@@ -1262,7 +1263,7 @@ public class WsrrLookup {
 
 			} else {
 
-				String executionTS = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date());
+				String executionTS = WsrrLookup.quadratureTS();
 				current = (HashMap<String, Object>) element.getObjectValue();
 
 				//
@@ -1294,7 +1295,7 @@ public class WsrrLookup {
 						.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 				sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 				sb.append("<finaltimeStamp>")
-						.append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
+						.append(WsrrLookup.quadratureTS())
 						.append("</finaltimeStamp>");
 				sb.append("</trace>");
 
@@ -1341,7 +1342,7 @@ public class WsrrLookup {
 
 			} else {
 
-				String executionTS = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date());
+				String executionTS = WsrrLookup.quadratureTS();
 				current = (HashMap<String, Object>) element.getObjectValue();
 
 				//
@@ -1372,7 +1373,7 @@ public class WsrrLookup {
 						.append("<environment></environment>").append("<libVersion>").append(aboutLib).append("</libVersion>");;
 				sb.append("<initialtimeStamp>").append(executionTS).append("</initialtimeStamp>");
 				sb.append("<finaltimeStamp>")
-						.append(new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date()))
+						.append(WsrrLookup.quadratureTS())
 						.append("</finaltimeStamp>");
 				sb.append("</trace>");
 
@@ -1585,5 +1586,31 @@ public class WsrrLookup {
 			return null;
 
 	}
+	
+	 public static String quadratureTS() {
+		 
+			String ts=null;
+			
+			long timeInMillis = System.currentTimeMillis();
+			long timeInNanos = System.nanoTime();
+			
+			Timestamp timestamp = new Timestamp(timeInMillis);
+			timestamp.setNanos((int) (timeInNanos % 1000000000));
+
+			String micros=timestamp.toString();
+			
+			String partmicro=micros.substring(micros.length()-9,micros.length()-3);
+			
+			String cts=new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss.SSSSSS").format(new Date());
+			
+			String partcts=cts.substring(0,cts.length()-6);
+			
+			long start = System.nanoTime();
+			long microseconds = start / 1000;			
+			
+			String strmicros = Long.toString(microseconds);			
+						
+			return (partcts+strmicros.substring(0,6));
+		 }
 
 }
